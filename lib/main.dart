@@ -1,4 +1,6 @@
+import 'package:favourite_places/presentation/screens/locations_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,19 +28,16 @@ final theme = ThemeData().copyWith(
 
 void main() {
   runApp(
-      const MyApp(),
+    const ProviderScope(child: MyApp()),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Great Places',
-      theme: theme,
-      home: ...,
-    );
+        title: 'Great Places', theme: theme, home: const LocationsList());
   }
 }
