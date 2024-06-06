@@ -1,3 +1,4 @@
+import 'package:favourite_places/presentation/screens/new_location.dart';
 import 'package:favourite_places/providers/locations_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,8 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class LocationsList extends ConsumerWidget {
   const LocationsList({super.key});
 
-  void _addLocation() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => ))
+  void _addLocation(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => const NewLocation()));
   }
 
   @override
@@ -17,7 +19,9 @@ class LocationsList extends ConsumerWidget {
         title: const Text('Your places'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _addLocation(context);
+            },
             icon: const Icon(Icons.add),
           )
         ],
