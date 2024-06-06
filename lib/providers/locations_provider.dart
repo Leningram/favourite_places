@@ -2,9 +2,7 @@ import 'package:favourite_places/models/location.dart';
 import 'package:riverpod/riverpod.dart';
 
 class LocationsNotifier extends StateNotifier<List<Location>> {
-  LocationsNotifier() : super([
-    Location(title: 'Test location')
-  ]);
+  LocationsNotifier() : super(const []);
 
   void addLocation(String title) {
     state = [...state, Location(title: title)];

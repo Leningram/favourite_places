@@ -12,7 +12,10 @@ class LocationDetails extends StatelessWidget {
       body: Center(
         child: Text(
           location.title,
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
     );

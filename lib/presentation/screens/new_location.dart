@@ -10,42 +10,42 @@ class NewLocation extends ConsumerStatefulWidget {
 }
 
 class _NewLocationState extends ConsumerState<NewLocation> {
-  final _enteredName = TextEditingController();
+  final _titleController = TextEditingController();
   void createLocation() {}
 
   void _addLocation() {
-    ref.read(locationsProvider.notifier).addLocation(_enteredName.text);
+    final title = _titleController.text;
+    if (title.isEmpty) {
+      return;
+    }
+    ref.read(locationsProvider.notifier).addLocation(title);
     Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Add location')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             TextField(
-              controller: _enteredName,
+              controller: _titleController,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               decoration: const InputDecoration(label: Text('Title')),
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add),
               onPressed: _addLocation,
-              child: const SizedBox(
-                width: 90,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add),
-                    SizedBox(width: 10),
-                    Text('Add place')
-                  ],
-                ),
-              ),
+              label: const Text('Add place'),
             )
           ],
         ),
