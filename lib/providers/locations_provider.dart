@@ -6,8 +6,8 @@ class LocationsNotifier extends StateNotifier<List<Location>> {
     Location(title: 'Test location')
   ]);
 
-  void addLocation(Location location) {
-    state = [...state, location];
+  void addLocation(String title) {
+    state = [...state, Location(title: title)];
   }
 
   void removeLocation(String id) {
