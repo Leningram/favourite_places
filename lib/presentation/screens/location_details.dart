@@ -9,6 +9,12 @@ class LocationDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(location.title)),
+      body: Center(
+        child: Text(
+          location.title,
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      ),
     );
   }
 }

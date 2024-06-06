@@ -28,7 +28,7 @@ class _NewLocationState extends ConsumerState<NewLocation> {
           children: [
             TextField(
               controller: _enteredName,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               decoration: const InputDecoration(label: Text('Title')),
             ),
             const SizedBox(height: 30),

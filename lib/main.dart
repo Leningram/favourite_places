@@ -1,4 +1,4 @@
-import 'package:favourite_places/presentation/screens/locations_list.dart';
+import 'package:favourite_places/presentation/screens/locations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,8 @@ final colorScheme = ColorScheme.fromSeed(
 );
 
 final theme = ThemeData().copyWith(
-  scaffoldBackgroundColor: colorScheme.background,
+  scaffoldBackgroundColor: colorScheme.surface,
+  appBarTheme: AppBarTheme(backgroundColor: colorScheme.primaryContainer),
   colorScheme: colorScheme,
   textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
     titleSmall: GoogleFonts.ubuntuCondensed(
@@ -38,6 +39,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Great Places', theme: theme, home: const LocationsList());
+        title: 'Great Places', theme: theme, home: const Locations());
   }
 }
