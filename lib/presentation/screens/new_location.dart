@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:favourite_places/presentation/widgets/image_input.dart';
 import 'package:favourite_places/providers/locations_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,14 +14,14 @@ class NewLocation extends ConsumerStatefulWidget {
 
 class _NewLocationState extends ConsumerState<NewLocation> {
   final _titleController = TextEditingController();
-  void createLocation() {}
+  File? _selectedImage;
 
   void _addLocation() {
     final title = _titleController.text;
-    if (title.isEmpty) {
+    if (title.isEmpty || _selectedImage == null) {
       return;
     }
-    ref.read(locationsProvider.notifier).addLocation(title);
+    ref.read(locationsProvider.notifier).addLocation(title, _selectedImage!);
     Navigator.of(context).pop();
   }
 
@@ -40,6 +43,10 @@ class _NewLocationState extends ConsumerState<NewLocation> {
               controller: _titleController,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               decoration: const InputDecoration(label: Text('Title')),
+            ),
+            const SizedBox(height: 30),
+            ImageInput(
+              onSelectImage: (image) => {_selectedImage = image},
             ),
             const SizedBox(height: 30),
             ElevatedButton.icon(
