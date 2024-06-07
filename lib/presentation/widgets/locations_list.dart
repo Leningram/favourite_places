@@ -35,6 +35,10 @@ class LocationsList extends StatelessWidget {
                 removeLocation(locations[index]);
               },
               child: ListTile(
+                leading: CircleAvatar(
+                  radius: 26,
+                  backgroundImage: FileImage(locations[index].image),
+                ),
                 onTap: () => selectLocation(locations[index]),
                 title: Text(
                   locations[index].title,

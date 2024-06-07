@@ -9,14 +9,15 @@ class LocationDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(location.title)),
-      body: Center(
-        child: Text(
-          location.title,
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(color: Theme.of(context).colorScheme.onSurface),
-        ),
+      body: Stack(
+        children: [
+          Image.file(
+            location.image,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          )
+        ],
       ),
     );
   }
