@@ -1,5 +1,7 @@
 import 'package:favourite_places/models/location.dart';
+import 'package:favourite_places/presentation/screens/map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LocationDetails extends StatelessWidget {
   const LocationDetails({super.key, required this.location});
@@ -7,9 +9,9 @@ class LocationDetails extends StatelessWidget {
   final Location location;
 
   String get locationImage {
-    final lat = location.place.latitute;
+    final lat = location.place.latitude;
     final lng = location.place.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:blue%7Clabel:A%7C$lat,$lng&key=';
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:blue%7Clabel:A%7C$lat,$lng&key=${dotenv.env['GOOGLE_API_KEY']}';
   }
 
   @override
@@ -30,9 +32,18 @@ class LocationDetails extends StatelessWidget {
               right: 0,
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 70,
-                    backgroundImage: NetworkImage(locationImage),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => MapScreen(
+                                location: location.place,
+                                isSelecting: false,
+                              )));
+                    },
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundImage: NetworkImage(locationImage),
+                    ),
                   ),
                   Container(
                     alignment: Alignment.center,

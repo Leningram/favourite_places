@@ -1,7 +1,7 @@
 import 'package:favourite_places/presentation/screens/locations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final colorScheme = ColorScheme.fromSeed(
@@ -27,7 +27,15 @@ final theme = ThemeData().copyWith(
   ),
 );
 
-void main() {
+void main()async {
+    WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: ".env");
+    print('Env file loaded successfully');
+    print('API_KEY: ${dotenv.env['API_KEY']}');
+  } catch (e) {
+    print('Failed to load .env file: $e');
+  }
   runApp(
     const ProviderScope(child: MyApp()),
   );
