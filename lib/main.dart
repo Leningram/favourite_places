@@ -28,14 +28,8 @@ final theme = ThemeData().copyWith(
 );
 
 void main()async {
-    WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await dotenv.load(fileName: ".env");
-    print('Env file loaded successfully');
-    print('API_KEY: ${dotenv.env['API_KEY']}');
-  } catch (e) {
-    print('Failed to load .env file: $e');
-  }
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(
     const ProviderScope(child: MyApp()),
   );
