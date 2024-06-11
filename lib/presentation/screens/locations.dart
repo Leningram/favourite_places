@@ -6,8 +6,16 @@ import 'package:favourite_places/providers/locations_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Locations extends ConsumerWidget {
+class Locations extends ConsumerStatefulWidget {
   const Locations({super.key});
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _LocationsState();
+  }
+}
+
+class _LocationsState extends ConsumerState<Locations> {
+  late Future<void> _locationsFuture;
 
   void _addLocation(BuildContext context) {
     Navigator.of(context)
@@ -26,7 +34,13 @@ class Locations extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    _locationsFuture = ref.read(locationsProvider.notifier).loadLocation();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final locations = ref.watch(locationsProvider);
     return Scaffold(
         appBar: AppBar(
@@ -40,11 +54,19 @@ class Locations extends ConsumerWidget {
             )
           ],
         ),
-        body: LocationsList(
-            selectLocation: (Location location) =>
-                _selectLocation(context, location),
-            locations: locations,
-            removeLocation: (Location location) =>
-                _removeLocation(ref, location)));
+        body: FutureBuilder(
+          future: _locationsFuture,
+          builder: (context, snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : LocationsList(
+                      selectLocation: (Location location) =>
+                          _selectLocation(context, location),
+                      locations: locations,
+                      removeLocation: (Location location) =>
+                          _removeLocation(ref, location)),
+        ));
   }
 }

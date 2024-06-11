@@ -24,7 +24,7 @@ Future<Database> _getDatabase() async {
 class LocationsNotifier extends StateNotifier<List<Location>> {
   LocationsNotifier() : super(const []);
 
-  void loadLocation() async {
+  Future<void> loadLocation() async {
     final db = await _getDatabase();
     if (dotenv.env['DB_NAME'] != null) {
       final data = await db.query(dotenv.env['DB_NAME']!);
